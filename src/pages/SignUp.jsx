@@ -1,55 +1,86 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  sendEmailVerification,
+  signInWithPopup,
+  updateProfile,
+  signOut,
+} from "firebase/auth";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../Firebase/Firebase.config";
 import { toast } from "react-toastify";
-const provider = new GoogleAuthProvider();
+import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
+  const [user, setUser] = useState(null);
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
+    const image = form.image.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, email, password); // Handle signup logic here
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        toast("User created successfully!");
         const user = res.user;
+        console.log(user);
+
+        updateProfile(user, {
+          displayName: name,
+          photoURL: image,
+        })
+          .then(() => {
+            console.log("Profile updated successfully");
+          })
+          .catch((error) => {
+            toast(error.message);
+          });
+
+        sendEmailVerification(user)
+          .then(() => {
+            toast("Verification email sent! Please check your inbox.");
+            signOut(auth); // Prevent access until verified
+          })
+          .catch((error) => toast(error.message));
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        toast("Error 404!");
+        toast(error.message);
       });
   };
 
   const handleGoogleSignUp = () => {
-    console.log("Google signup clicked");
-    
+    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
-    // Add Firebase or OAuth Google signup logic here
+      .then(() => {
+        toast("Signed in with Google successfully!");
+        setUser(auth.currentUser);
+      })
+      .catch((error) => {
+        toast(error.message);
+      });
   };
+
+  if (user) {
+    return (
+      <div className="card bg-base-100 w-full max-w-md mx-auto my-10 shadow-xl">
+        <div className="card-body text-center">
+          <img src={user.photoURL} alt="" />
+          <h2 className="text-2xl font-semibold">
+            Welcome, {user.displayName}!
+          </h2>
+          <p className="text-gray-600">{user.email}</p>
+          <button
+            onClick={() => setUser(null)}
+            className="btn btn-error text-white mt-5"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -64,6 +95,14 @@ const SignUp = () => {
                 className="input w-full"
                 placeholder="Your name"
                 required
+              />
+
+              <label className="label">Image URL</label>
+              <input
+                type="text"
+                name="image"
+                className="input w-full"
+                placeholder="Your image URL"
               />
 
               <label className="label">Email</label>
@@ -106,6 +145,7 @@ const SignUp = () => {
               onClick={handleGoogleSignUp}
               className="btn btn-outline btn-primary w-full"
             >
+              <FcGoogle className="text-2xl" />
               Continue with Google
             </button>
           </div>

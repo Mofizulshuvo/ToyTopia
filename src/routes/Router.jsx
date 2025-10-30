@@ -6,6 +6,7 @@ import Products from "../pages/Products";
 import Shop from "../pages/Shop";
 import Login from "../pages/login";
 import SignUp from "../pages/SignUp";
+import ForgetPassword from "../Components/ForgetPassword";
 
 
 export const router = createBrowserRouter([
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgetPassword />,
       },
       {
         path: "/signup",

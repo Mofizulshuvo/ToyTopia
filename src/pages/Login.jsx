@@ -2,31 +2,38 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { auth } from "../Firebase/Firebase.config";
 import { toast } from "react-toastify";
+import { Link } from "react-router";
 
 const GoogleProvider = new GoogleAuthProvider();
 
 const Login = () => {
+  const [user, setUser] = useState(null);
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
     console.log(email, password); // Handle login logic here
     signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        // Signed in
-        toast("Logged in Successfully!");
-        const user = res.user;
-        // ...
+      .then(async (res) => {
+        if (res.user.emailVerified === false) {
+          await signOut(auth); // block access
+          toast("Please verify your email before logging in.");
+        } else {
+          toast("Logged in Successfully!");
+          setUser(res.user);
+        }
       })
       .catch((error) => {
         toast("Error 404!");
         const errorCode = error.code;
-        const errorMessage = error.message;
+        toast(errorCode);
       });
   };
 
@@ -34,27 +41,35 @@ const Login = () => {
     console.log("Google login clicked");
 
     signInWithPopup(auth, GoogleProvider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+      .then(() => {
+        toast("Logged in with Google Successfully!");
+        setUser(auth.currentUser);
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        toast(errorCode);
       });
-    // Add Firebase or OAuth Google login here
   };
+
+  if (user) {
+    return (
+      <div className="card bg-base-100 w-full max-w-md mx-auto my-10 shadow-xl">
+        <div className="card-body text-center">
+          <img src={user.photoURL} alt="" />
+          <h2 className="text-2xl font-semibold">
+            Welcome, {user.displayName}!
+          </h2>
+          <p className="text-gray-600">{user.email}</p>
+          <button
+            onClick={() => setUser(null)}
+            className="btn btn-error text-white mt-5"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -86,7 +101,9 @@ const Login = () => {
                 Login
               </button>
               <div className="text-center mt-2">
-                <a className="link link-hover text-sm">Forgot password?</a>
+                <Link to="/forgot-password" className="text-sm text-blue-500 link link-hover ">
+                  Forgot Password?
+                </Link> 
               </div>
             </fieldset>
 
