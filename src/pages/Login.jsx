@@ -1,49 +1,53 @@
-import React, { useContext } from "react";
-import { auth } from "../Firebase/Firebase.config";
-import { signOut } from "firebase/auth";
+import React, { use, useContext, useState } from "react";
+import { signOut } from "firebase/auth"; 
 import { toast } from "react-toastify";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { auth } from "../Firebase/Firebase.config"; 
 import AuthContext from "../Contex/AuthContext";
 
 const Login = () => {
   const {
     user,
     setUser,
+    setForgotEmail,
     signInWithEmailAndPasswordFunction,
     signInwithPopupFunction,
     logOut,
   } = useContext(AuthContext);
 
+  const location=useLocation();
+  console.log(location.state);
+
+  const navigate = useNavigate();
+  const [emailInput, setEmailInput] = useState("");
+
   const handleLogin = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    const password = e.target.password.value;
 
-    signInWithEmailAndPasswordFunction(email, password)
+    signInWithEmailAndPasswordFunction(emailInput, password)
       .then(async (res) => {
-        if (res.user.emailVerified === false) {
+        if (!res.user.emailVerified) {
           await signOut(auth);
           toast("Please verify your email before logging in.");
         } else {
           toast("Logged in Successfully!");
-          setUser(res.user); // update global context
+
+          setUser(res.user);
+          navigate(location.state || "/");
         }
       })
-      .catch((error) => {
-        toast(error.message);
-      });
+      .catch((error) => toast(error.message));
   };
 
   const handleGoogleLogin = () => {
     signInwithPopupFunction()
       .then(() => {
         toast("Logged in with Google Successfully!");
-        setUser(auth.currentUser); 
+        setUser(auth.currentUser);
+         navigate(location.state || "/");
       })
-      .catch((error) => {
-        toast(error.message);
-      });
+      .catch((error) => toast(error.message));
   };
 
   if (user) {
@@ -59,10 +63,7 @@ const Login = () => {
             Welcome, {user.displayName || user.email}!
           </h2>
           <p className="text-gray-600">{user.email}</p>
-          <button
-            onClick={logOut}
-            className="btn btn-error text-white mt-5 w-full"
-          >
+          <button onClick={logOut} className="btn btn-error text-white mt-5 w-full">
             Logout
           </button>
         </div>
@@ -83,6 +84,8 @@ const Login = () => {
                 className="input w-full"
                 placeholder="Email"
                 required
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
               />
 
               <label className="label mt-3">Password</label>
@@ -105,6 +108,7 @@ const Login = () => {
                 <Link
                   to="/forgot-password"
                   className="text-sm text-blue-500 link link-hover"
+                  onClick={() => setForgotEmail(emailInput)}
                 >
                   Forgot Password?
                 </Link>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -10,10 +10,14 @@ import {
 import { auth } from "../Firebase/Firebase.config";
 import AuthContext from "./AuthContext";
 
+import {ToyData,setToyData} from '../Components/Toys.jsx';  
+
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [forgotEmail, setForgotEmail] = useState("");
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -21,7 +25,6 @@ const AuthProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
-
 
   const createUserWithEmailAndPasswordFunction = (email, password) => {
     setLoading(true);
@@ -40,7 +43,6 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true);
-    // setUser(null);
     return signOut(auth);
   };
 
@@ -48,10 +50,14 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     loading,
+    forgotEmail,
+    setForgotEmail,
     createUserWithEmailAndPasswordFunction,
     signInWithEmailAndPasswordFunction,
     signInwithPopupFunction,
     logOut,
+    ToyData,
+    setToyData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

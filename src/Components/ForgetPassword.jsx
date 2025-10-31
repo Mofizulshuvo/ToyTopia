@@ -1,10 +1,16 @@
+import React, { useContext, useState, useEffect } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
-import React, { useState } from "react";
+import { auth } from "../Firebase/Firebase.config"; 
 import { toast } from "react-toastify";
-import { auth } from "../Firebase/Firebase.config";
+import AuthContext from "../Contex/AuthContext";
 
 const ForgetPassword = () => {
+  const { forgotEmail } = useContext(AuthContext);
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    if (forgotEmail) setEmail(forgotEmail); 
+  }, [forgotEmail]);
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
@@ -13,24 +19,26 @@ const ForgetPassword = () => {
       return;
     }
     sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast("Password reset email sent!");
-      })
-      .catch((error) => {
-        toast(error.message);
-      });
+      .then(() => toast("Password reset email sent!"))
+      .catch((error) => toast(error.message));
   };
 
   return (
-    <div className="w-3/6 mx-auto my-10 p-5  border border-gray-300 rounded">
-      <form onSubmit={handlePasswordReset} className="">
-        <input className=" border-gray-300 p-2 w-2/3 rounded mb-4"
+    <div className="w-3/6 mx-auto my-10 p-5 border border-gray-300 rounded">
+      <form onSubmit={handlePasswordReset}>
+        <input
+          className="border-gray-300 p-2 w-2/3 rounded mb-4"
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button className="bg-[#ff8800] hover:bg-orange-600 text-white p-2 rounded mx-auto" type="submit">Reset Password</button>
+        <button
+          className="bg-[#ff8800] hover:bg-orange-600 text-white p-2 rounded mx-auto"
+          type="submit"
+        >
+          Reset Password
+        </button>
       </form>
     </div>
   );

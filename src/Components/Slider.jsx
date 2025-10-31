@@ -1,48 +1,55 @@
+// BannerSlider.jsx
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import image1 from "../assets/images/image1.jpg";
+import image2 from "../assets/images/image2.jpg";  
+import image3 from "../assets/images/image3.jpg";
+import image4 from "../assets/images/image4.jpg";
 
 const Slider = () => {
   return (
-    <div>
-      <div className="carousel w-full">
-        <div id="item1" className="carousel-item w-full">
+    <div className="max-w-5xl mx-auto my-10">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={30}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+      >
+        <SwiperSlide>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-            className="w-full"
+            src={image1}
+            alt="Banner 1"
+            className="w-full rounded-lg"
           />
-        </div>
-        <div id="item2" className="carousel-item w-full">
+        </SwiperSlide>
+        <SwiperSlide>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-            className="w-full"
+            src={image2}
+            alt="Banner 2"
+            className="w-full rounded-lg"
           />
-        </div>
-        <div id="item3" className="carousel-item w-full">
+        </SwiperSlide>
+        <SwiperSlide>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-            className="w-full"
+            src={image3}
+            alt="Banner 3"
+            className="w-full rounded-lg"
           />
-        </div>
-        <div id="item4" className="carousel-item w-full">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-            className="w-full"
-          />
-        </div>
-      </div>
-      <div className="flex w-full justify-center gap-2 py-2">
-        <a href="#item1" className="btn btn-xs">
-          1
-        </a>
-        <a href="#item2" className="btn btn-xs">
-          2
-        </a>
-        <a href="#item3" className="btn btn-xs">
-          3
-        </a>
-        <a href="#item4" className="btn btn-xs">
-          4
-        </a>
-      </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 };
