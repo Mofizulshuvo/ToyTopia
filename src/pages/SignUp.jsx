@@ -6,13 +6,15 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../Firebase/Firebase.config";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
+import AuthContext from "../Contex/AuthContext";
 
 const SignUp = () => {
+   const { createUserWithEmailAndPasswordFunction } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -22,7 +24,9 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+   
+
+    createUserWithEmailAndPasswordFunction( email, password)
       .then((res) => {
         const user = res.user;
         console.log(user);

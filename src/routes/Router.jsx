@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import MainLayouts from "../Layouts/MainLayouts";
 import Products from "../pages/Products";
 import Shop from "../pages/Shop";
-import Login from "../pages/login";
+import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import ForgetPassword from "../Components/ForgetPassword";
 
