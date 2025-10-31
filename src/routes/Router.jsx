@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import ForgetPassword from "../Components/ForgetPassword";
 import PrivateRoutes from "../Components/PrivateRoutes";
 import Profile from "../pages/Profile";
+// import ToyDetails from "../Components/ToyDetails";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,12 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <PrivateRoutes>
           <Profile />
+          </PrivateRoutes>
+      },
+      {
+        path: "/Toydetails/:toyId",
+        element: <PrivateRoutes>
+          {/* <ToyDetails /> */}
           </PrivateRoutes>
       }
     ]

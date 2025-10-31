@@ -10,7 +10,7 @@ import {
 import { auth } from "../Firebase/Firebase.config";
 import AuthContext from "./AuthContext";
 
-import {ToyData,setToyData} from '../Components/Toys.jsx';  
+// import {ToyData,setToyData} from '../Components/Toys.jsx';  
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
@@ -56,8 +56,8 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPasswordFunction,
     signInwithPopupFunction,
     logOut,
-    ToyData,
-    setToyData,
+    //  ToyData,
+    // setToyData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
