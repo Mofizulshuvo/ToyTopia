@@ -104,13 +104,19 @@ const Login = () => {
                 Login
               </button>
 
-              <div className="text-center mt-2">
+              <div className="text-center mt-2 ">
                 <Link
                   to="/forgot-password"
                   className="text-sm text-blue-500 link link-hover"
                   onClick={() => setForgotEmail(emailInput)}
                 >
                   Forgot Password?
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-sm text-black link link-hover ml-4"
+                >
+                  New User? <span className="text-[#ff8800] font-semibold">Sign Up</span>
                 </Link>
               </div>
             </fieldset>

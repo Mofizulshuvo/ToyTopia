@@ -1,6 +1,6 @@
 import React from "react";
 import Toys from "../Components/Toys";
-import Slider from "../Components/slider";
+import Slider from "../Components/Slider";
 
 const Home = () => {
   return (

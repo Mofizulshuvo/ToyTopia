@@ -60,23 +60,23 @@ const Navbar = () => {
 
       <div className="flex gap-3 items-center text-xl">
         {user ? (
-          <Dropdown/>
-        ) :  (
-        <>
-          <FaUser />
-          <Link
-            to="/signup"
-            className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
-          >
-            Sign Up
-          </Link>
-          <Link
-            to="/login"
-            className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
-          >
-            Log In
-          </Link>
-        </>
+          <Dropdown />
+        ) : (
+          <>
+            <FaUser />
+            <Link
+              to="/signup"
+              className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
+            >
+              Sign Up
+            </Link>
+            <Link
+              to="/login"
+              className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
+            >
+              Log In
+            </Link>
+          </>
         )}
       </div>
     </div>

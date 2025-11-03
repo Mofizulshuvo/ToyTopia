@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithPopup, 
   GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.config";
-import AuthContext from "./AuthContext";
+import AuthContext from "./AuthContext"; 
+import ToyData from  "../Components/Toys.jsx";
+import setToyData  from  "../Components/Toys.jsx";
 
 // import {ToyData,setToyData} from '../Components/Toys.jsx';  
 
@@ -24,6 +26,14 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     });
     return () => unsubscribe();
+  }, []);
+
+   const [ToyData, setToyData] = useState([]);
+
+  useEffect(() => {
+    fetch("/data.json")
+      .then(res => res.json())
+      .then(data => setToyData(data));
   }, []);
 
   const createUserWithEmailAndPasswordFunction = (email, password) => {
@@ -56,11 +66,11 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPasswordFunction,
     signInwithPopupFunction,
     logOut,
-    //  ToyData,
-    // setToyData,
+     ToyData,
+     setToyData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export default AuthProvider;
+export default AuthProvider; 
