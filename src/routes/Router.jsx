@@ -10,13 +10,14 @@ import ForgetPassword from "../Components/ForgetPassword";
 import PrivateRoutes from "../Components/PrivateRoutes";
 import Profile from "../pages/Profile";
 import ToyDetails from "../Components/ToyDetails";
+import ErrorPage from "../pages/ErrorPage";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayouts />,
-    // errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",

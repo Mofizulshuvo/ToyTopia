@@ -2,16 +2,17 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../Contex/AuthContext";
 import Review from  "../Components/Review";
+import Loader from "./Loader";
 const ToyDetails = () => {
-  const { toyId } = useParams(); // toyId from URL
+  const { toyId } = useParams(); 
   const { ToyData } = useContext(AuthContext);
   console.log(location.pathname);
   console.log(ToyData);
   console.log(toyId);
 
-  if (!ToyData || ToyData.length === 0) return <p className="text-center mt-10">Loading toy details...</p>;
+  if (!ToyData) return <Loader></Loader>
 
-  // Find the clicked toy by toyId (make sure to parseInt since useParams returns a string)
+
   const clickedToy = ToyData.find((toy) => toy.toyId === parseInt(toyId));
   const {
     toyName,
@@ -26,7 +27,7 @@ const ToyDetails = () => {
   } = clickedToy;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg my-10">
+    <div className=" mx-auto p-6 bg-white shadow rounded-lg my-10">
       <h2 className="text-3xl font-bold mb-4">{toyName}</h2>
       <img
         src={pictureURL}

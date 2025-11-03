@@ -10,6 +10,7 @@ const Shop = () => {
       .then((data) => setToyData(data));
   }, []);
 
+  
   const [search, setSearch] = useState("");
   const [priceSort, setPriceSort] = useState("");
   const [toys, setToys] = useState([]);

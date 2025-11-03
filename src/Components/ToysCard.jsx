@@ -35,3 +35,4 @@ const ToysCard = ({ toy }) => {
 };
 
 export default ToysCard;
+
