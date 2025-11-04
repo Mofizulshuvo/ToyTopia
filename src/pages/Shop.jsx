@@ -1,38 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../Contex/AuthContext";
 
 const Shop = () => {
   const [toyData, setToyData] = useState([]);
+  const [priceSort, setPriceSort] = useState("");
+  const [toys, setToys] = useState([]);
+
   useEffect(() => {
     fetch("/data.json")
       .then((res) => res.json())
       .then((data) => setToyData(data));
   }, []);
 
-  
-  const [search, setSearch] = useState("");
-  const [priceSort, setPriceSort] = useState("");
-  const [toys, setToys] = useState([]);
-
   useEffect(() => {
     let filtered = [...toyData];
-
-    if (priceSort === "low") {
-      filtered.sort((a, b) => a.price - b.price);
-    } else if (priceSort === "high") {
-      filtered.sort((a, b) => b.price - a.price);
-    }
-
+    if (priceSort === "low") filtered.sort((a, b) => a.price - b.price);
+    else if (priceSort === "high") filtered.sort((a, b) => b.price - a.price);
     setToys(filtered);
-  }, [toyData, search, priceSort]);
+  }, [toyData, priceSort]);
 
-  if (!toyData.length) {
-    return <p className="text-center mt-10">Loading toys...</p>;
-  }
+  if (!toyData.length) return <p className="text-center mt-10">Loading toys...</p>;
 
   return (
-    <div className=" mx-auto py-8">
+    <div className="mx-auto py-8">
       <h1 className="text-3xl font-semibold mb-6 text-gray-800">Shop Toys</h1>
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -53,15 +43,14 @@ const Shop = () => {
             <Link
               key={toy.toyId}
               to={`/toydetails/${toy.toyId}`}
-              className=" p-5  bg-white mt-4 hover: shadow-lg transform transition-transform duration-100 translate-x-2 hover:-translate-y-2 w-[400px]"
+              className="p-5 bg-white mt-4 hover:shadow-lg transform transition-transform duration-100 translate-x-2 hover:-translate-y-2 w-[400px]"
             >
               <img
-                src={toy.pictureUrl}
+                src={toy.pictureURL}
                 className="w-full h-40 object-cover rounded-md mb-2"
+                alt={toy.toyName}
               />
-              <p className="font-medium text-gray-800 text-left">
-                {toy.toyName}
-              </p>
+              <p className="font-medium text-gray-800 text-left">{toy.toyName}</p>
               <p className="text-orange-600 font-semibold">${toy.price}</p>
               <p>Available : {toy.availableQuantity}</p>
             </Link>

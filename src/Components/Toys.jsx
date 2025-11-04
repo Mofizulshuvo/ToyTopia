@@ -9,7 +9,8 @@ const Toys = () => {
       .then((data) => setToyData(data));
   }, []);
   console.log(toyData);
-  return (
+  const PopularToys=toyData.filter(toy=>[18,17,1,3,7,5].includes(toy.toyId));
+  return(
     <div className="my-10">
       <div>
         <h1 className="text-5xl font-bold text-center text-[#FFB800] mb-3">
@@ -21,7 +22,7 @@ const Toys = () => {
         gap-x-2 gap-y-6 sm:gap-x-8 sm:gap-y-10 md:gap-x-10 md:gap-y-12 
         px-4 sm:px-6 md:px-10 lg:px-20 place-items-center"
       >
-        {toyData.map((toy) => (
+        {PopularToys.map((toy) => (
           <ToysCard key={toy.id} toy={toy}></ToysCard>
         ))}
       </div>
