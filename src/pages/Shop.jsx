@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../Components/Loader";
+import { Helmet } from "react-helmet";
 
 const Shop = () => {
   const [toyData, setToyData] = useState([]);
@@ -19,10 +21,13 @@ const Shop = () => {
     setToys(filtered);
   }, [toyData, priceSort]);
 
-  if (!toyData.length) return <p className="text-center mt-10">Loading toys...</p>;
+  if (!toyData.length) return <p className="text-center mt-10"><Loader/></p>;
 
   return (
     <div className="mx-auto py-8">
+      <Helmet>
+        <title>ToyTopia | Shop</title>
+      </Helmet>
       <h1 className="text-3xl font-semibold mb-6 text-gray-800">Shop Toys</h1>
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -43,7 +48,7 @@ const Shop = () => {
             <Link
               key={toy.toyId}
               to={`/toydetails/${toy.toyId}`}
-              className="p-5 bg-white mt-4 hover:shadow-lg transform transition-transform duration-100 translate-x-2 hover:-translate-y-2 w-[400px]"
+              className="p-5 bg-white mt-4 hover:shadow-lg transform transition-transform duration-100 translate-x-2 hover:-translate-y-2 w-full"
             >
               <img
                 src={toy.pictureURL}

@@ -1,22 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FaBalanceScaleRight, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
 import AuthContext from "../Contex/AuthContext";
 import Dropdown from "./Dropdown";
-import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
-  const { user, logOut, cartCount } = useContext(AuthContext);
+  const { user, cartCount } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="px-10 py-8 flex justify-between items-center text-xl bg-[#FFF7EE]">
-      <GiHamburgerMenu className="sm:block md:hidden" />
-      <h1 className="text-4xl text-black font-bold">
-        {" "}
-        <span className="text-[#ff8800] font-bold">Toy</span>Topia
-      </h1>
+    <div className="px-10 py-6 flex justify-between items-center text-xl bg-[#FFF7EE] relative">
+      
+      <div className="flex items-center gap-4">
+        <button
+          className="md:hidden text-3xl text-[#ff8800]"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <IoMdClose /> : <GiHamburgerMenu />}
+        </button>
 
+        <h1 className="text-4xl text-black font-bold">
+          <span className="text-[#ff8800] font-bold">Toy</span>Topia
+        </h1>
+      </div>
+
+     
       <div className="hidden md:flex gap-7 justify-center items-center">
         <NavLink
           to="/"
@@ -48,7 +58,8 @@ const Navbar = () => {
         >
           Products
         </NavLink>
-        {user ? (
+
+        {user && (
           <>
             <NavLink
               to="/profile"
@@ -78,15 +89,16 @@ const Navbar = () => {
               </div>
             </NavLink>
           </>
-        ) : null}
+        )}
       </div>
 
+      
       <div className="flex gap-3 items-center text-xl">
         {user ? (
           <Dropdown />
         ) : (
           <>
-            <FaUser />
+            {/* <FaUser /> */}
             <Link
               to="/signup"
               className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
@@ -95,13 +107,58 @@ const Navbar = () => {
             </Link>
             <Link
               to="/login"
-              className="bg-[#ff8800] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
+              className="bg-[#080706] font-semibold text-white px-3 py-2 w-[100px] rounded-[10px] text-center"
             >
               Log In
             </Link>
           </>
         )}
       </div>
+
+     
+      {menuOpen && (
+        <div className="absolute top-full left-0 w-full bg-[#FFF7EE] flex flex-col items-center py-4 shadow-lg md:hidden z-50">
+          <NavLink
+            to="/"
+            onClick={() => setMenuOpen(false)}
+            className="text-[#ff8800] font-semibold py-2"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/shop"
+            onClick={() => setMenuOpen(false)}
+            className="text-[#ff8800] font-semibold py-2"
+          >
+            Shop
+          </NavLink>
+          <NavLink
+            to="/products"
+            onClick={() => setMenuOpen(false)}
+            className="text-[#ff8800] font-semibold py-2"
+          >
+            Products
+          </NavLink>
+          {user && (
+            <>
+              <NavLink
+                to="/profile"
+                onClick={() => setMenuOpen(false)}
+                className="text-[#ff8800] font-semibold py-2"
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                to="/Cart"
+                onClick={() => setMenuOpen(false)}
+                className="text-[#ff8800] font-semibold py-2"
+              >
+                Cart
+              </NavLink>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

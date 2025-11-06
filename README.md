@@ -6,7 +6,7 @@ Users can browse toys, view detailed information, log in to protected routes, an
 ---
 
 ##  Live Demo
-🔗 [Live Site](https://your-live-site-link.netlify.app)
+🔗 [Live Site](https://mofizulshuvo-toytopia.com)
 
 ---
 
@@ -21,6 +21,19 @@ The project demonstrates:
 ---
 
 ## Features
+1. User Accounts
+2. Product Browsing
+3. Product Details
+4. Sorting and Filtering
+5. Popular Toys Section
+6. Shopping Cart
+7. Notifications & Updates
+8. Mobile-Friendly Design
+9. Image Galleries & Sliders
+10. Easy Navigation
+11. Reviews and Ratings
+12. Social Media Integration
+
 
 ### Home Page
 - Hero slider showcasing toys (using Swiper slider or DaisyUI)
@@ -55,19 +68,4 @@ The project demonstrates:
 
 ---
 
-##  JSON Data
-All toy data is stored in a `data.json` file with the following structure:
 
-```json
-{
-  "toyId": 1,
-  "toyName": "Lego Classic Bricks",
-  "sellerName": "Toys R Us Local",
-  "sellerEmail": "contact@toysruslocal.com",
-  "price": 49.99,
-  "rating": 4.7,
-  "availableQuantity": 75,
-  "description": "A timeless set of colorful Lego bricks that encourages creativity and problem-solving.",
-  "pictureURL": "https://i.ibb.co/example-image.png",
-  "subCategory": "Building Blocks"
-}

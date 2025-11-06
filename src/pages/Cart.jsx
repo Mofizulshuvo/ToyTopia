@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../Contex/AuthContext";
+import { Helmet } from "react-helmet";
 
 const Cart = () => {
   const { ToyData, cart } = useContext(AuthContext);
@@ -10,6 +11,9 @@ const Cart = () => {
 
   return (
     <div className="p-6">
+      <Helmet>
+        <title>ToyTopia | Cart</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
 
       {CartItems.length === 0 ? (

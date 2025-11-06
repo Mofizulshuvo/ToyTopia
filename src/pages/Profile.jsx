@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../Contex/AuthContext";
+import Loader from "../Components/Loader";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const { user, setUser, logOut } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
   const [name, setName] = useState(user.displayName);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
+
+  if(!user)  return <Loader/>
 
   const handleSave = () => {
     setUser({ ...user, displayName: name, photoURL: photoURL });
@@ -23,6 +27,9 @@ const Profile = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+      <Helmet>
+        <title>ToyTopia | Profile</title>
+      </Helmet>
       <div className="flex flex-col items-center md:flex-row md:items-start gap-6">
 
         <div className="relative">

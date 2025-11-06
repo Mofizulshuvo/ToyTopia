@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../Firebase/Firebase.config"; 
 import AuthContext from "../Contex/AuthContext";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const {
@@ -73,6 +74,9 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ToyTopia | Login</title>
+      </Helmet>
       <form onSubmit={handleLogin}>
         <div className="card bg-base-100 w-full max-w-md mx-auto my-10 shadow-2xl">
           <div className="card-body">

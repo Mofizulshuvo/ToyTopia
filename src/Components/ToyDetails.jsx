@@ -4,6 +4,7 @@ import AuthContext from "../Contex/AuthContext";
 import Review from "../Components/Review";
 import Loader from "./Loader";
 import TryNow from "../Components/TryNow";
+import { Helmet } from "react-helmet";
 const ToyDetails = () => {
   const { toyId } = useParams();
   const { ToyData, cart, setCart,cartCount,setCartCount } = useContext(AuthContext);
@@ -30,6 +31,9 @@ const ToyDetails = () => {
 
   return (
     <div className=" mx-auto p-6 bg-white shadow rounded-lg my-10">
+      <Helmet>
+        <title>ToyTopia | Toy Details</title>
+      </Helmet>
       <h2 className="text-3xl font-bold mb-4">{toyName}</h2>
       <img
         src={pictureURL}

@@ -8,14 +8,20 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import image1 from "../assets/images/image1.jpg";
-import image2 from "../assets/images/image2.jpg";  
-import image3 from "../assets/images/image3.jpg";
-import image4 from "../assets/images/image4.jpg";
+
+import image1 from "../assets/images/banner1.webp"
+import image2 from "../assets/images/banner2.webp"
+import image3 from "../assets/images/banner3.webp"
+import image4 from "../assets/images/banner4.webp"
+
+
+
+
+
 
 const Slider = () => {
   return (
-    <div className="max-w-5xl mx-auto my-10">
+    <div className="max-w-full mx-auto mb-10">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
@@ -46,6 +52,13 @@ const Slider = () => {
           <img
             src={image3}
             alt="Banner 3"
+            className="w-full rounded-lg"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src={image4}
+            alt="Banner 4"
             className="w-full rounded-lg"
           />
         </SwiperSlide>

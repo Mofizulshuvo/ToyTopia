@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../Components/Loader";
+import { Helmet } from "react-helmet";
 
 const Products = () => {
   const [toys, setToys] = useState([]);
@@ -12,9 +13,6 @@ const Products = () => {
       .then((res) => res.json())
       .then((data) => {
         setToys(data);
-
-        // const cats = ["All", ...new Set(data.map((toy) => toy.subCategory))];
-        // setCategories(cats);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -28,6 +26,9 @@ const Products = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
+      <Helmet>
+        <title>ToyTopia | Products</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center text-orange-600 mb-8">
         Explore Our Toys
       </h1>
@@ -48,7 +49,6 @@ const Products = () => {
         ))}
       </div>
 
-     
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredToys.map((toy) => (
           <div
@@ -62,7 +62,9 @@ const Products = () => {
                 className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">{toy.toyName}</h2>
+            <h2 className="text-lg font-semibold text-gray-800">
+              {toy.toyName}
+            </h2>
             <p className="text-orange-500 font-bold">${toy.price}</p>
             <p className="text-gray-500 text-sm">{toy.subCategory}</p>
             <p className="text-gray-600 text-sm mt-1 line-clamp-2">

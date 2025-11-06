@@ -12,6 +12,7 @@ import { auth } from "../Firebase/Firebase.config";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import AuthContext from "../Contex/AuthContext";
+import { Helmet } from "react-helmet";
 
 const SignUp = () => {
   const { createUserWithEmailAndPasswordFunction } = useContext(AuthContext);
@@ -97,6 +98,9 @@ const SignUp = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ToyTopia | Signup</title>
+      </Helmet>
       <form onSubmit={handleSignUp}>
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl mx-auto my-10">
           <div className="card-body">
