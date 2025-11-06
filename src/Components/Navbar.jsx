@@ -1,17 +1,21 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaBalanceScaleRight, FaShoppingCart, FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import AuthContext from "../Contex/AuthContext";
 import Dropdown from "./Dropdown";
+import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, cartCount } = useContext(AuthContext);
 
   return (
     <div className="px-10 py-8 flex justify-between items-center text-xl bg-[#FFF7EE]">
       <GiHamburgerMenu className="sm:block md:hidden" />
-      <h1 className="text-2xl text-black font-bold">TeddyBee</h1>
+      <h1 className="text-4xl text-black font-bold">
+        {" "}
+        <span className="text-[#ff8800] font-bold">Toy</span>Topia
+      </h1>
 
       <div className="hidden md:flex gap-7 justify-center items-center">
         <NavLink
@@ -45,16 +49,35 @@ const Navbar = () => {
           Products
         </NavLink>
         {user ? (
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              isActive
-                ? "text-black font-semibold"
-                : "text-[#ff8800] font-semibold"
-            }
-          >
-            Profile
-          </NavLink>
+          <>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-black font-semibold"
+                  : "text-[#ff8800] font-semibold"
+              }
+            >
+              Profile
+            </NavLink>
+            <NavLink
+              to="/Cart"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-black font-semibold"
+                  : "text-[#ff8800] font-semibold"
+              }
+            >
+              <div className="relative inline-block">
+                <FaShoppingCart size={22} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+            </NavLink>
+          </>
         ) : null}
       </div>
 

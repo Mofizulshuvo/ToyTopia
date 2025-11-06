@@ -14,7 +14,7 @@ import { FcGoogle } from "react-icons/fc";
 import AuthContext from "../Contex/AuthContext";
 
 const SignUp = () => {
-   const { createUserWithEmailAndPasswordFunction } = useContext(AuthContext);
+  const { createUserWithEmailAndPasswordFunction } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -24,34 +24,43 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-   
+    if (
+      !/[A-Z]/.test(password) ||
+      !/[a-z]/.test(password) ||
+      password.length < 6
+    ) {
+      toast(
+        "Password must contain uppercase & lowercase and minimum 6 characters"
+      );
+    } 
+    else {
+      createUserWithEmailAndPasswordFunction(email, password)
+        .then((res) => {
+          const user = res.user;
+          console.log(user);
 
-    createUserWithEmailAndPasswordFunction( email, password)
-      .then((res) => {
-        const user = res.user;
-        console.log(user);
+          updateProfile(user, {
+            displayName: name,
+            photoURL: image,
+          })
+            .then(() => {
+              console.log("Profile updated successfully");
+            })
+            .catch((error) => {
+              toast(error.message);
+            });
 
-        updateProfile(user, {
-          displayName: name,
-          photoURL: image,
+          sendEmailVerification(user)
+            .then(() => {
+              toast("Verification email sent! Please check your inbox.");
+              signOut(auth); // Prevent access until verified
+            })
+            .catch((error) => toast(error.message));
         })
-          .then(() => {
-            console.log("Profile updated successfully");
-          })
-          .catch((error) => {
-            toast(error.message);
-          });
-
-        sendEmailVerification(user)
-          .then(() => {
-            toast("Verification email sent! Please check your inbox.");
-            signOut(auth); // Prevent access until verified
-          })
-          .catch((error) => toast(error.message));
-      })
-      .catch((error) => {
-        toast(error.message);
-      });
+        .catch((error) => {
+          toast(error.message);
+        });
+    }
   };
 
   const handleGoogleSignUp = () => {

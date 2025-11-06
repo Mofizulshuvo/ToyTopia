@@ -48,11 +48,11 @@ const ReviewSection = () => {
             Add Your Review Here
           </h4>
           <form onSubmit={handleAddReview} className="space-y-4">
-            <input
+            {/* <input
               type="text"
               value={user.displayName}
               className="w-full  py-2 rounded-lg bg-gray-100 text-gray-700 border px-4"
-            />
+            /> */}
             <textarea
               placeholder="Write your comment..."
               required

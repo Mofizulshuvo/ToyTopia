@@ -8,6 +8,7 @@ const Home = () => {
 
       <Slider />
       <Toys className="mt-10" />
+      
     </div>
   );
 };

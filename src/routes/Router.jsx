@@ -11,6 +11,7 @@ import PrivateRoutes from "../Components/PrivateRoutes";
 import Profile from "../pages/Profile";
 import ToyDetails from "../Components/ToyDetails";
 import ErrorPage from "../pages/ErrorPage";
+import Cart from "../pages/Cart";
 
 
 export const router = createBrowserRouter([
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: "/Toydetails/:toyId",
         element: <PrivateRoutes><ToyDetails /></PrivateRoutes>
+      },
+      {
+        path: "/Cart",
+        element:<PrivateRoutes> <Cart/> </PrivateRoutes>
       }
     ]
   }

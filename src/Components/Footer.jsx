@@ -4,10 +4,10 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#FFB800] text-white mt-10">
+    <footer className="bg-[#FFF7EE] text-black mt-10">
       <div className=" ml-20 mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
-          <h2 className="text-xl font-bold mb-4">ToyLand</h2>
+          <h2 className="text-xl font-bold mb-4"> <span className="text-[#ff8800] font-bold">Toy</span>Topia</h2>
           <p className="text-sm">
             Your one-stop online store for the most fun and exciting toys. 
             Quality products and happy smiles guaranteed!
@@ -36,16 +36,16 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
           <div className="flex gap-4 text-white">
-            <a href="#" className="hover:text-gray-200"><FaFacebookF /></a>
-            <a href="#" className="hover:text-gray-200"><FaTwitter /></a>
-            <a href="#" className="hover:text-gray-200"><FaInstagram /></a>
-            <a href="#" className="hover:text-gray-200"><FaYoutube /></a>
+            <a href="#" className="hover:text-orange-500 text-black text-2xl"><FaFacebookF /></a>
+            <a href="#" className="hover:text-orange-500 text-black text-2xl"><FaTwitter /></a>
+            <a href="#" className="hover:text-orange-500 text-black text-2xl"><FaInstagram /></a>
+            <a href="#" className="hover:text-orange-500 text-black text-2xl"><FaYoutube /></a>
           </div>
         </div>
       </div>
 
       <div className="bg-[#FFB860] text-center text-sm py-4">
-        &copy; {new Date().getFullYear()} ToyLand. All rights reserved.
+        &copy; {new Date().getFullYear()} ToyBee. All rights reserved.
       </div>
     </footer>
   );

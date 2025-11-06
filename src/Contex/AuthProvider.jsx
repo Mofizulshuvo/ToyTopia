@@ -12,6 +12,8 @@ import AuthContext from "./AuthContext";
 import ToyData from  "../Components/Toys.jsx";
 import setToyData  from  "../Components/Toys.jsx";
 
+
+
 // import {ToyData,setToyData} from '../Components/Toys.jsx';  
 
 const AuthProvider = ({ children }) => {
@@ -19,6 +21,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [forgotEmail, setForgotEmail] = useState("");
+  const [cart,setCart]=useState([]);
+  const [cartCount,setCartCount]=useState(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -68,6 +72,10 @@ const AuthProvider = ({ children }) => {
     logOut,
      ToyData,
      setToyData,
+     cart,
+     setCart,
+     cartCount,
+     setCartCount
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
