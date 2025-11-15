@@ -5,6 +5,7 @@ import Review from "../Components/Review";
 import Loader from "./Loader";
 import TryNow from "../Components/TryNow";
 import { Helmet } from "react-helmet";
+import { toast } from "react-toastify";
 const ToyDetails = () => {
   const { toyId } = useParams();
   const { ToyData, cart, setCart,cartCount,setCartCount } = useContext(AuthContext);
@@ -67,8 +68,10 @@ const ToyDetails = () => {
           <button
           className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 "
           onClick={() => {setCart((cart) => [...cart, clickedToy.toyId])
+            toast.success(`${toyName} is added to the cart successfully!`)
+            setCartCount(cartCount+1);
             
-            setCartCount(cartCount+1);}
+          }
           }
         >
           Add to Cart

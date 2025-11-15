@@ -13,7 +13,7 @@ const ToysCard = ({ toy }) => {
         />
       </div>
       <div>
-        <p className="font-bold">{toyName}</p>
+        <p className="font-bold text-2xl">{toyName}</p>
         <div className="flex justify-between mt-2">
           <div>
             <p className="text-gray-500">{sellerName}</p>

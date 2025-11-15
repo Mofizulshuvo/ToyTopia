@@ -1,12 +1,13 @@
 import React, { use, useContext, useState } from "react";
 import { signOut } from "firebase/auth"; 
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../Firebase/Firebase.config"; 
 import AuthContext from "../Contex/AuthContext";
 import { Helmet } from "react-helmet";
 
 const Login = () => {
+  
   const {
     user,
     setUser,
@@ -28,15 +29,11 @@ const Login = () => {
 
     signInWithEmailAndPasswordFunction(emailInput, password)
       .then(async (res) => {
-        if (!res.user.emailVerified) {
-          await signOut(auth);
-          toast("Please verify your email before logging in.");
-        } else {
-          toast("Logged in Successfully!");
+        
+          toast.success("Logged in Successfully!");
 
           setUser(res.user);
           navigate(location.state || "/");
-        }
       })
       .catch((error) => toast(error.message));
   };

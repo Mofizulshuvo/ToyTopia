@@ -12,7 +12,6 @@ const Navbar = () => {
 
   return (
     <div className="px-10 py-6 flex justify-between items-center text-xl bg-[#FFF7EE] relative">
-      
       <div className="flex items-center gap-4">
         <button
           className="md:hidden text-3xl text-[#ff8800]"
@@ -20,13 +19,13 @@ const Navbar = () => {
         >
           {menuOpen ? <IoMdClose /> : <GiHamburgerMenu />}
         </button>
-
-        <h1 className="text-4xl text-black font-bold">
-          <span className="text-[#ff8800] font-bold">Toy</span>Topia
-        </h1>
+        <NavLink to="/">
+          <h1 className="text-4xl text-black font-bold">
+            <span className="text-[#ff8800] font-bold">Toy</span>Topia
+          </h1>
+        </NavLink>
       </div>
 
-     
       <div className="hidden md:flex gap-7 justify-center items-center">
         <NavLink
           to="/"
@@ -92,7 +91,6 @@ const Navbar = () => {
         )}
       </div>
 
-      
       <div className="flex gap-3 items-center text-xl">
         {user ? (
           <Dropdown />
@@ -115,7 +113,6 @@ const Navbar = () => {
         )}
       </div>
 
-     
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-[#FFF7EE] flex flex-col items-center py-4 shadow-lg md:hidden z-50">
           <NavLink

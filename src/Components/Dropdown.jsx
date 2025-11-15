@@ -6,18 +6,14 @@ const Dropdown = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div className="relative">
       <img
-        src={user?.photoURL || "https://via.placeholder.com/40"}
+        src={user?.photoURL}
         alt="User"
-        className="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent hover:border-orange-500 transition-all"
+        onClick={() => setOpen(prev => !prev)}
+        className="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent active:border-orange-500 transition-all duration-300 ease-in-out"
       />
 
-    
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
           <div className="p-4 border-b border-gray-100">

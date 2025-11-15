@@ -64,6 +64,10 @@ const SignUp = () => {
     }
   };
 
+
+
+  
+
   const handleGoogleSignUp = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
